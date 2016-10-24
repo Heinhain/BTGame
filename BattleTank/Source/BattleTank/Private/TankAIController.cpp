@@ -18,10 +18,25 @@ void ATankAIController::BeginPlay()
 	{
 		UE_LOG(LogTemp, Error, TEXT("Can not recieve controlled Tank"));
 	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Player found: %s!"), *GetPlayerTank()->GetName());
 }
 
 
 ATank* ATankAIController::GetControlledTank() const
 {
 	return Cast<ATank>(GetPawn());
+}
+
+ATank * ATankAIController::GetPlayerTank() const
+{
+	ATank* PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController());
+	if (PlayerTank)
+	{
+		return PlayerTank;
+	}
+	else
+	{
+		return nullptr;
+	}
 }
